@@ -27,10 +27,12 @@
             <div class="text-2xl font-black tracking-wider text-red-500">
                 BRO_BROA3
             </div>
-            <div class="space-x-6 text-sm font-semibold">
-                <a href="#about" class="hover:text-blue-400 transition">About</a>
-                <a href="#team" class="hover:text-red-400 transition">Team</a>
-                <a href="#discord" class="bg-[#5865F2] hover:bg-[#4752C4] px-4 py-2 rounded-full transition shadow-lg text-white">Join Discord</a>
+            <div class="space-x-4 md:space-x-6 text-sm font-semibold flex items-center">
+                <a href="#about" class="hover:text-blue-400 transition hidden sm:inline-block">About</a>
+                <a href="#introductions" class="hover:text-blue-400 transition hidden sm:inline-block">Introductions</a>
+                <a href="#team" class="hover:text-red-400 transition hidden sm:inline-block">Team</a>
+                <!-- Discord link opens in new tab -->
+                <a href="https://discord.gg/hTEvZ3nkZd" target="_blank" rel="noopener noreferrer" class="bg-[#5865F2] hover:bg-[#4752C4] px-4 py-2 rounded-full transition shadow-lg text-white">Join Discord</a>
             </div>
         </div>
     </nav>
@@ -52,7 +54,8 @@
                     Gamer, creator, and community builder. Explore the site, check out the team, and jump into the community to play along!
                 </p>
                 <div class="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
-                    <a href="#discord" class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg shadow-red-500/30 transition transform hover:-translate-y-1">
+                    <!-- Get involved opens discord in new tab -->
+                    <a href="https://discord.gg/hTEvZ3nkZd" target="_blank" rel="noopener noreferrer" class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg shadow-red-500/30 transition transform hover:-translate-y-1">
                         Get Involved
                     </a>
                 </div>
@@ -66,6 +69,27 @@
                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/1f2937/red?text=Bro_broa3';"
                     class="relative z-10 w-full h-auto object-cover rounded-2xl border-4 border-gray-700 glow-effect transform transition duration-500 hover:scale-[1.02]"
                 >
+            </div>
+        </section>
+
+        <!-- Introductions Section (YouTube Embed for Instant Play) -->
+        <section id="introductions" class="mb-32">
+            <div class="text-center mb-10">
+                <h2 class="text-4xl md:text-5xl font-black text-white">Introductions</h2>
+                <div class="h-1 w-20 bg-blue-500 mx-auto mt-4 rounded-full"></div>
+                <p class="text-gray-400 mt-6 max-w-2xl mx-auto text-lg">Check out my latest gameplay and highlights!</p>
+            </div>
+            <div class="max-w-4xl mx-auto bg-gray-800/50 rounded-3xl p-4 md:p-6 border border-gray-700 shadow-2xl relative glow-effect">
+                <!-- Paste your YouTube Embed Link in the "src" below! -->
+                <iframe 
+                    class="w-full aspect-video rounded-2xl shadow-lg border border-gray-700 bg-black"
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
             </div>
         </section>
 
