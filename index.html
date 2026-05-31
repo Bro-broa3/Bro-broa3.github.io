@@ -7,7 +7,7 @@
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom styles for animations and smooth scrolling */
+        /* Custom styles for animations and visual effects */
         html {
             scroll-behavior: smooth;
         }
@@ -17,8 +17,8 @@
         .discord-glow {
             box-shadow: 0 0 25px rgba(88, 101, 242, 0.6);
         }
-        .script-glow {
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+        .youtube-glow {
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
         }
         
         /* Spinner animation for loading */
@@ -31,222 +31,299 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Page transition animations */
+        .page-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Hide scrollbar for textareas but allow scrolling */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+        textarea::-webkit-scrollbar-track {
+            background: rgba(31, 41, 55, 1); 
+            border-radius: 8px;
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background: rgba(75, 85, 99, 1); 
+            border-radius: 8px;
+        }
     </style>
 </head>
-<body class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white font-sans min-h-screen">
+<body class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white font-sans min-h-screen flex flex-col">
 
     <!-- Navigation Bar -->
     <nav class="bg-gray-900/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-700">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="text-2xl font-black tracking-wider text-red-500">
+            <div class="text-2xl font-black tracking-wider text-red-500 cursor-pointer" onclick="switchPage('home')">
                 BRO_BROA3
             </div>
-            <div class="space-x-4 md:space-x-6 text-sm font-semibold flex items-center">
-                <a href="#about" class="hover:text-blue-400 transition hidden sm:inline-block">About</a>
-                <a href="#introductions" class="hover:text-blue-400 transition hidden sm:inline-block">Introductions</a>
-                <a href="#scripts" class="hover:text-purple-400 transition hidden sm:inline-block">Scripts</a>
-                <a href="#team" class="hover:text-red-400 transition hidden sm:inline-block">Team</a>
+            <div class="space-x-2 md:space-x-6 text-sm font-semibold flex items-center">
+                <!-- Page Navigation Links -->
+                <a href="#home" onclick="switchPage('home'); return false;" id="nav-home" class="nav-btn text-gray-400 hover:text-white transition px-3 py-2 rounded-lg hover:bg-gray-800">Home</a>
+                <a href="#scripts" onclick="switchPage('scripts'); return false;" id="nav-scripts" class="nav-btn text-gray-400 hover:text-purple-400 transition px-3 py-2 rounded-lg hover:bg-gray-800">Scripts</a>
+                <a href="#youtube" onclick="switchPage('youtube'); return false;" id="nav-youtube" class="nav-btn text-gray-400 hover:text-red-500 transition px-3 py-2 rounded-lg hover:bg-gray-800">YouTube</a>
+                
                 <!-- Discord link opens in new tab -->
-                <a href="https://discord.gg/hTEvZ3nkZd" target="_blank" rel="noopener noreferrer" class="bg-[#5865F2] hover:bg-[#4752C4] px-4 py-2 rounded-full transition shadow-lg text-white">Join Discord</a>
+                <a href="https://discord.gg/hTEvZ3nkZd" target="_blank" rel="noopener noreferrer" class="bg-[#5865F2] hover:bg-[#4752C4] px-4 py-2 rounded-full transition shadow-lg text-white ml-2">Discord</a>
             </div>
         </div>
     </nav>
 
     <!-- Main Content Container -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+    <main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 w-full">
 
-        <!-- Hero / About Section -->
-        <section id="about" class="flex flex-col md:flex-row items-center gap-10 mb-32">
-            <div class="md:w-1/2 space-y-6 text-center md:text-left pt-10">
-                <div class="inline-block px-4 py-1 rounded-full bg-blue-500/20 text-blue-300 font-bold text-sm border border-blue-500/30 mb-2">
-                    Welcome to my world
-                </div>
-                <h1 class="text-5xl md:text-7xl font-black leading-tight">
-                    Hey, I'm <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-400">Bro_broa3</span>
-                </h1>
-                <p class="text-lg md:text-xl text-gray-300 leading-relaxed max-w-lg mx-auto md:mx-0">
-                    Gamer, creator, and community builder. Explore the site, check out the team, and jump into the community to play along!
-                </p>
-                <div class="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
-                    <!-- Get involved opens discord in new tab -->
-                    <a href="https://discord.gg/hTEvZ3nkZd" target="_blank" rel="noopener noreferrer" class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg shadow-red-500/30 transition transform hover:-translate-y-1">
-                        Get Involved
-                    </a>
-                </div>
-            </div>
-            <div class="md:w-1/2 w-full mt-10 md:mt-0 relative">
-                <!-- Decorative background blob -->
-                <div class="absolute inset-0 bg-blue-500 blur-[80px] opacity-20 rounded-full"></div>
-                <img 
-                    src="IMG_0025.jpeg" 
-                    alt="Bro_broa3 Avatar" 
-                    onerror="this.onerror=null; this.src='https://placehold.co/600x400/1f2937/red?text=Bro_broa3';"
-                    class="relative z-10 w-full h-auto object-cover rounded-2xl border-4 border-gray-700 glow-effect transform transition duration-500 hover:scale-[1.02]"
-                >
-            </div>
-        </section>
-
-        <!-- Introductions Section -->
-        <section id="introductions" class="mb-32">
-            <div class="text-center mb-10">
-                <h2 class="text-4xl md:text-5xl font-black text-white">Introductions</h2>
-                <div class="h-1 w-20 bg-blue-500 mx-auto mt-4 rounded-full"></div>
-                <p class="text-gray-400 mt-6 max-w-2xl mx-auto text-lg">Check out my latest gameplay and highlights!</p>
-            </div>
-            <div class="max-w-4xl mx-auto bg-gray-800/50 rounded-3xl p-4 md:p-6 border border-gray-700 shadow-2xl relative glow-effect text-center">
-                <!-- Streamable Embed -->
-                <iframe 
-                    class="w-full aspect-video rounded-2xl shadow-lg border border-gray-700 bg-black mb-6"
-                    src="https://streamable.com/e/quk0im" 
-                    title="Streamable video player" 
-                    frameborder="0" 
-                    allow="autoplay; fullscreen; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-                
-                <!-- Fallback Watch Button -->
-                <a 
-                    href="https://streamable.com/quk0im" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-xl transition duration-200 text-sm"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    Can't play? Watch on Streamable
-                </a>
-            </div>
-        </section>
-
-        <!-- Scripts Section (Dynamically Loaded) -->
-        <section id="scripts" class="mb-32">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl md:text-5xl font-black text-white">Scripts</h2>
-                <div class="h-1 w-20 bg-purple-500 mx-auto mt-4 rounded-full"></div>
-                <p class="text-gray-400 mt-6 max-w-2xl mx-auto text-lg">Powerful & optimized game scripts. Free to use!</p>
-            </div>
-
-            <!-- Search and Filter Controls (Hidden initially until scripts load) -->
-            <div id="scripts-controls" class="max-w-5xl mx-auto mb-8 flex flex-col sm:flex-row gap-4 hidden">
-                <div class="relative flex-1">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
+        <!-- ========================================== -->
+        <!-- HOME PAGE SECTION                          -->
+        <!-- ========================================== -->
+        <div id="page-home" class="page-section hidden">
+            <!-- Hero / About Section -->
+            <section class="flex flex-col md:flex-row items-center gap-10 mb-32">
+                <div class="md:w-1/2 space-y-6 text-center md:text-left pt-10">
+                    <div class="inline-block px-4 py-1 rounded-full bg-blue-500/20 text-blue-300 font-bold text-sm border border-blue-500/30 mb-2">
+                        Welcome to my world
                     </div>
-                    <input 
-                        type="text" 
-                        id="searchInput" 
-                        placeholder="Search scripts (e.g., 'B')..." 
-                        class="w-full bg-gray-800/60 border border-gray-700 text-white rounded-xl focus:ring-purple-500 focus:border-purple-500 block pl-11 p-3.5 shadow-lg placeholder-gray-500 transition duration-200"
-                    >
-                </div>
-                <div class="sm:w-56">
-                    <select 
-                        id="filterDropdown" 
-                        class="w-full bg-gray-800/60 border border-gray-700 text-white rounded-xl focus:ring-purple-500 focus:border-purple-500 block p-3.5 shadow-lg cursor-pointer transition duration-200"
-                    >
-                        <option value="all">All Scripts</option>
-                        <option value="free">Only Free Script</option>
-                        <option value="key">Only Key Script</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Loading State -->
-            <div id="scripts-loading" class="flex flex-col items-center justify-center py-12">
-                <div class="loader rounded-full w-12 h-12 mb-4"></div>
-                <p class="text-purple-400 font-medium">Fetching latest scripts from GitHub...</p>
-            </div>
-            
-            <!-- Error State -->
-            <div id="scripts-error" class="hidden flex-col items-center justify-center py-8 bg-red-900/20 border border-red-500/30 rounded-2xl max-w-2xl mx-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-500 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-                <p class="text-red-400 font-bold">Failed to load scripts.</p>
-                <p class="text-gray-400 text-sm mt-1">Please try refreshing the page later.</p>
-            </div>
-
-            <!-- Dynamic Scripts Grid (Populated by JS) -->
-            <div id="scripts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto hidden">
-                <!-- Cards will be injected here automatically -->
-            </div>
-        </section>
-
-        <!-- Team Section -->
-        <section id="team" class="mb-32">
-            <div class="bg-gray-800/50 rounded-3xl p-8 md:p-12 border border-gray-700 flex flex-col md:flex-row-reverse items-center gap-10 shadow-2xl relative overflow-hidden">
-                <!-- Background decoration -->
-                <div class="absolute top-0 right-0 w-64 h-64 bg-red-500 blur-[100px] opacity-10"></div>
-                
-                <div class="md:w-1/2 space-y-6 z-10 text-center md:text-left">
-                    <h2 class="text-4xl md:text-5xl font-black text-white">Team Bro_broa</h2>
-                    <div class="h-1 w-20 bg-red-500 mx-auto md:mx-0 rounded-full"></div>
-                    <p class="text-xl text-gray-300 leading-relaxed">
-                        Looking for an awesome squad? We are actively recruiting! Join a community of gamers dedicated to having fun, collaborating, and dominating together. 
+                    <h1 class="text-5xl md:text-7xl font-black leading-tight">
+                        Hey, I'm <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-400">Bro_broa3</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-300 leading-relaxed max-w-lg mx-auto md:mx-0">
+                        Gamer, creator, and community builder. Check out my latest content, grab my free scripts, and jump into the community to play along!
                     </p>
-                    <p class="text-gray-400 font-medium">
-                        Don't play alone. Join Team bro_broa today and become part of the family.
-                    </p>
+                    <div class="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
+                        <!-- Navigation Shortcuts from Hero -->
+                        <button onclick="switchPage('scripts')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg shadow-purple-500/30 transition transform hover:-translate-y-1">
+                            Browse Scripts
+                        </button>
+                        <button onclick="switchPage('youtube')" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg shadow-red-500/30 transition transform hover:-translate-y-1">
+                            My YouTube
+                        </button>
+                    </div>
                 </div>
-                <div class="md:w-1/2 w-full flex justify-center z-10">
+                <div class="md:w-1/2 w-full mt-10 md:mt-0 relative">
+                    <!-- Decorative background blob -->
+                    <div class="absolute inset-0 bg-blue-500 blur-[80px] opacity-20 rounded-full"></div>
                     <img 
-                        src="XRecorder_Edited_20250523_01.jpeg" 
-                        alt="Team bro_broa Join today!" 
-                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/dc2626/white?text=Team+bro_broa';"
-                        class="w-full max-w-sm rounded-xl shadow-2xl border-4 border-red-600/50 transform rotate-3 hover:rotate-0 transition duration-300"
+                        src="IMG_0025.jpeg" 
+                        alt="Bro_broa3 Avatar" 
+                        onerror="this.onerror=null; this.src='https://placehold.co/600x400/1f2937/red?text=Bro_broa3';"
+                        class="relative z-10 w-full h-auto object-cover rounded-2xl border-4 border-gray-700 glow-effect transform transition duration-500 hover:scale-[1.02]"
                     >
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Discord Call to Action -->
-        <section id="discord" class="mb-20">
-            <div class="bg-gradient-to-br from-[#5865F2] to-[#4752C4] rounded-[2.5rem] p-10 md:p-16 text-center discord-glow relative overflow-hidden transform transition hover:-translate-y-2 duration-300">
-                <!-- Background pattern (circles) -->
-                <div class="absolute top-[-50px] left-[-50px] w-48 h-48 bg-white opacity-10 rounded-full"></div>
-                <div class="absolute bottom-[-50px] right-[-50px] w-64 h-64 bg-white opacity-10 rounded-full"></div>
-
-                <div class="relative z-10 flex flex-col items-center">
-                    <div class="bg-white p-2 rounded-3xl inline-block mb-8 shadow-xl">
-                        <img 
-                            src="IMG_0425.jpeg" 
-                            alt="Discord Logo" 
-                            onerror="this.onerror=null; this.src='https://placehold.co/100x100/5865F2/white?text=Discord';"
-                            class="w-20 h-20 md:w-24 md:h-24 object-cover rounded-2xl"
-                        >
-                    </div>
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6">
-                        Join the Official Server!
-                    </h2>
-                    <p class="text-lg md:text-xl text-indigo-100 max-w-2xl mx-auto mb-10 font-medium">
-                        Hang out with bro_broa3, meet the rest of the team, get live updates, and hop into voice channels for game nights!
-                    </p>
+            <!-- Introductions Section -->
+            <section class="mb-32">
+                <div class="text-center mb-10">
+                    <h2 class="text-4xl md:text-5xl font-black text-white">Introductions</h2>
+                    <div class="h-1 w-20 bg-blue-500 mx-auto mt-4 rounded-full"></div>
+                    <p class="text-gray-400 mt-6 max-w-2xl mx-auto text-lg">Check out my latest gameplay and highlights!</p>
+                </div>
+                <div class="max-w-4xl mx-auto bg-gray-800/50 rounded-3xl p-4 md:p-6 border border-gray-700 shadow-2xl relative glow-effect text-center">
+                    <!-- Streamable Embed -->
+                    <iframe 
+                        class="w-full aspect-video rounded-2xl shadow-lg border border-gray-700 bg-black mb-6"
+                        src="https://streamable.com/e/quk0im" 
+                        title="Streamable video player" 
+                        frameborder="0" 
+                        allow="autoplay; fullscreen; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    
                     <a 
-                        href="https://discord.gg/hTEvZ3nkZd" 
+                        href="https://streamable.com/quk0im" 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        class="inline-flex items-center gap-3 bg-white text-[#5865F2] font-black text-xl py-4 px-12 rounded-full shadow-[0_10px_25px_rgba(0,0,0,0.3)] hover:bg-gray-100 hover:scale-105 active:scale-95 transition-all duration-200"
+                        class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-xl transition duration-200 text-sm"
                     >
-                        Click to Join
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
+                        Can't play? Watch on Streamable
                     </a>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <!-- Team Section -->
+            <section class="mb-32">
+                <div class="bg-gray-800/50 rounded-3xl p-8 md:p-12 border border-gray-700 flex flex-col md:flex-row-reverse items-center gap-10 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-red-500 blur-[100px] opacity-10"></div>
+                    
+                    <div class="md:w-1/2 space-y-6 z-10 text-center md:text-left">
+                        <h2 class="text-4xl md:text-5xl font-black text-white">Team Bro_broa</h2>
+                        <div class="h-1 w-20 bg-red-500 mx-auto md:mx-0 rounded-full"></div>
+                        <p class="text-xl text-gray-300 leading-relaxed">
+                            Looking for an awesome squad? We are actively recruiting! Join a community of gamers dedicated to having fun, collaborating, and dominating together. 
+                        </p>
+                        <p class="text-gray-400 font-medium">
+                            Don't play alone. Join Team bro_broa today and become part of the family.
+                        </p>
+                    </div>
+                    <div class="md:w-1/2 w-full flex justify-center z-10">
+                        <img 
+                            src="XRecorder_Edited_20250523_01.jpeg" 
+                            alt="Team bro_broa Join today!" 
+                            onerror="this.onerror=null; this.src='https://placehold.co/400x400/dc2626/white?text=Team+bro_broa';"
+                            class="w-full max-w-sm rounded-xl shadow-2xl border-4 border-red-600/50 transform rotate-3 hover:rotate-0 transition duration-300"
+                        >
+                    </div>
+                </div>
+            </section>
+
+            <!-- Discord Call to Action -->
+            <section class="mb-10">
+                <div class="bg-gradient-to-br from-[#5865F2] to-[#4752C4] rounded-[2.5rem] p-10 md:p-16 text-center discord-glow relative overflow-hidden transform transition hover:-translate-y-2 duration-300">
+                    <div class="absolute top-[-50px] left-[-50px] w-48 h-48 bg-white opacity-10 rounded-full"></div>
+                    <div class="absolute bottom-[-50px] right-[-50px] w-64 h-64 bg-white opacity-10 rounded-full"></div>
+
+                    <div class="relative z-10 flex flex-col items-center">
+                        <div class="bg-white p-2 rounded-3xl inline-block mb-8 shadow-xl">
+                            <img 
+                                src="IMG_0425.jpeg" 
+                                alt="Discord Logo" 
+                                onerror="this.onerror=null; this.src='https://placehold.co/100x100/5865F2/white?text=Discord';"
+                                class="w-20 h-20 md:w-24 md:h-24 object-cover rounded-2xl"
+                            >
+                        </div>
+                        <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6">
+                            Join the Official Server!
+                        </h2>
+                        <p class="text-lg md:text-xl text-indigo-100 max-w-2xl mx-auto mb-10 font-medium">
+                            Hang out with bro_broa3, meet the rest of the team, get live updates, and hop into voice channels for game nights!
+                        </p>
+                        <a 
+                            href="https://discord.gg/hTEvZ3nkZd" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            class="inline-flex items-center gap-3 bg-white text-[#5865F2] font-black text-xl py-4 px-12 rounded-full shadow-[0_10px_25px_rgba(0,0,0,0.3)] hover:bg-gray-100 hover:scale-105 active:scale-95 transition-all duration-200"
+                        >
+                            Click to Join
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCRIPTS PAGE SECTION                       -->
+        <!-- ========================================== -->
+        <div id="page-scripts" class="page-section hidden">
+            <section>
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-black text-white">Scripts</h2>
+                    <div class="h-1 w-20 bg-purple-500 mx-auto mt-4 rounded-full"></div>
+                    <p class="text-gray-400 mt-6 max-w-2xl mx-auto text-lg">Powerful & optimized game scripts. Click to copy and use in your executor!</p>
+                </div>
+
+                <!-- Search and Filter Controls -->
+                <div id="scripts-controls" class="max-w-5xl mx-auto mb-8 flex flex-col sm:flex-row gap-4 hidden">
+                    <div class="relative flex-1">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="Search scripts" 
+                            class="w-full bg-gray-800/60 border border-gray-700 text-white rounded-xl focus:ring-purple-500 focus:border-purple-500 block pl-11 p-3.5 shadow-lg placeholder-gray-500 transition duration-200"
+                        >
+                    </div>
+                    <div class="sm:w-56">
+                        <select 
+                            id="filterDropdown" 
+                            class="w-full bg-gray-800/60 border border-gray-700 text-white rounded-xl focus:ring-purple-500 focus:border-purple-500 block p-3.5 shadow-lg cursor-pointer transition duration-200"
+                        >
+                            <option value="all">All Scripts</option>
+                            <option value="free">Only Free Script</option>
+                            <option value="key">Only Key Script</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div id="scripts-loading" class="flex flex-col items-center justify-center py-20">
+                    <div class="loader rounded-full w-16 h-16 mb-6"></div>
+                    <p class="text-purple-400 text-lg font-medium">Fetching the latest scripts...</p>
+                </div>
+                
+                <!-- Error State -->
+                <div id="scripts-error" class="hidden flex-col items-center justify-center py-12 bg-red-900/20 border border-red-500/30 rounded-2xl max-w-2xl mx-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-red-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <p class="text-red-400 font-bold text-xl">Failed to load scripts.</p>
+                    <p class="text-gray-400 mt-2">Please try refreshing the page later.</p>
+                </div>
+
+                <!-- Dynamic Scripts Grid -->
+                <div id="scripts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto hidden pb-20">
+                    <!-- Cards injected by JS -->
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- YOUTUBE PAGE SECTION                       -->
+        <!-- ========================================== -->
+        <div id="page-youtube" class="page-section hidden">
+            <section class="mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-black text-white">YouTube Channel</h2>
+                    <div class="h-1 w-20 bg-red-600 mx-auto mt-4 rounded-full"></div>
+                    <p class="text-gray-400 mt-6 max-w-2xl mx-auto text-lg">Watch my latest uploads, showcases, and gameplay highlights!</p>
+                </div>
+
+                <!-- Main Channel Banner Card -->
+                <div class="max-w-4xl mx-auto bg-gray-800/80 rounded-[2rem] border border-gray-700 shadow-2xl relative overflow-hidden flex flex-col items-center p-10 md:p-16 youtube-glow">
+                    <!-- Decorative YouTube Background Shapes -->
+                    <div class="absolute top-[-100px] right-[-50px] w-64 h-64 bg-red-600 blur-[80px] opacity-20 rounded-full pointer-events-none"></div>
+                    <div class="absolute bottom-[-100px] left-[-50px] w-64 h-64 bg-red-600 blur-[80px] opacity-10 rounded-full pointer-events-none"></div>
+
+                    <!-- Profile Image -->
+                    <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-red-600 shadow-xl mb-6 relative z-10">
+                        <img 
+                            src="IMG_0025.jpeg" 
+                            alt="Bro_broa3 Channel Icon" 
+                            onerror="this.onerror=null; this.src='https://placehold.co/400x400/1f2937/red?text=Bro_broa3';"
+                            class="w-full h-full object-cover"
+                        >
+                    </div>
+
+                    <!-- Channel Info -->
+                    <h3 class="text-4xl font-black text-white mb-3 relative z-10">bro_broa3</h3>
+                    <p class="text-gray-300 text-center max-w-lg mb-10 text-lg leading-relaxed relative z-10">
+                        Welcome to my official YouTube channel! This is where I drop the best showcases, gaming highlights, and exclusive content you don't want to miss. 
+                    </p>
+
+                    <!-- Large Subscribe Button -->
+                    <a 
+                        href="https://youtube.com/@bro_broa3?si=fBiBNLPM-yfsIX1p" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="relative z-10 flex items-center gap-3 bg-[#FF0000] hover:bg-[#CC0000] text-white font-bold text-xl py-4 px-10 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_20px_rgba(255,0,0,0.6)] active:scale-95"
+                    >
+                        <!-- SVG YouTube Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                        </svg>
+                        Subscribe to Channel
+                    </a>
+                </div>
+            </section>
+        </div>
 
     </main>
 
     <!-- Script Copying Modal -->
     <div id="scriptModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
         <div id="modalContent" class="bg-gray-800 border border-gray-700 w-full max-w-xl rounded-2xl p-6 shadow-2xl relative transform scale-95 transition-transform duration-300">
-            <!-- Modal Header -->
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-bold text-white flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-purple-500 animate-pulse"></span>
@@ -255,13 +332,11 @@
                 <button onclick="closeScriptModal()" class="text-gray-400 hover:text-white transition text-2xl font-semibold">&times;</button>
             </div>
             
-            <!-- Modal Body -->
             <p class="text-gray-400 text-sm mb-3">Copy and paste this script into your executor:</p>
             <div class="relative bg-gray-950 rounded-xl p-4 border border-gray-800 mb-6">
-                <textarea id="scriptText" readonly class="w-full h-28 bg-transparent text-purple-300 font-mono text-xs focus:outline-none resize-none scrollbar-thin scrollbar-thumb-gray-700"></textarea>
+                <textarea id="scriptText" readonly class="w-full h-32 bg-transparent text-purple-300 font-mono text-xs focus:outline-none resize-none"></textarea>
             </div>
             
-            <!-- Modal Actions -->
             <div class="flex flex-col sm:flex-row gap-3">
                 <button id="modalCopyBtn" onclick="copyCurrentScript()" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-xl transition flex items-center justify-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -277,29 +352,76 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-800 py-8 text-center">
+    <footer class="bg-gray-900 border-t border-gray-800 py-8 text-center mt-auto">
         <p class="text-gray-500 font-medium">
             &copy; 2026 Bro_broa3. All rights reserved. <br>
             <span class="text-sm mt-2 block">Built for GitHub Pages</span>
         </p>
     </footer>
 
-    <!-- Copy Modal and GitHub Fetching JavaScript -->
+    <!-- Application Logic (Routing, Modal, Github Fetch) -->
     <script>
-        // --- 1. MODAL COPY LOGIC ---
+        // --- 1. SINGLE PAGE ROUTING LOGIC ---
+        function switchPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.add('hidden');
+                page.classList.remove('page-fade-in');
+            });
+            
+            // Show requested page with animation
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                // Tiny timeout ensures the CSS animation triggers reliably
+                setTimeout(() => targetPage.classList.add('page-fade-in'), 10);
+            } else {
+                // Fallback to home if page doesn't exist
+                document.getElementById('page-home').classList.remove('hidden');
+            }
+
+            // Update Nav visual state
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-white', 'bg-gray-800');
+                btn.classList.add('text-gray-400');
+            });
+            
+            const activeNav = document.getElementById('nav-' + pageId);
+            if(activeNav) {
+                activeNav.classList.remove('text-gray-400');
+                activeNav.classList.add('text-white', 'bg-gray-800');
+            }
+
+            // Update URL hash without jumping down the page
+            history.pushState(null, null, '#' + pageId);
+            window.scrollTo(0, 0);
+        }
+
+        // Handle browser Back/Forward buttons and direct URL hits
+        window.addEventListener('popstate', handleUrlRoute);
+        window.addEventListener('DOMContentLoaded', () => {
+            handleUrlRoute();
+            loadScripts(); // Kick off the script loading in the background
+        });
+
+        function handleUrlRoute() {
+            let hash = window.location.hash.replace('#', '');
+            if (!hash) hash = 'home';
+            switchPage(hash);
+        }
+
+        // --- 2. MODAL COPY LOGIC ---
         let scriptToCopy = "";
 
         function openScriptModal(gameName, scriptCode) {
             const modal = document.getElementById('scriptModal');
             const content = document.getElementById('modalContent');
-            const modalTitle = document.getElementById('modalTitle');
-            const scriptText = document.getElementById('scriptText');
-            const copyBtn = document.getElementById('modalCopyBtn');
-
-            modalTitle.innerText = gameName + " Script";
-            scriptText.value = scriptCode;
+            
+            document.getElementById('modalTitle').innerText = gameName + " Script";
+            document.getElementById('scriptText').value = scriptCode;
             scriptToCopy = scriptCode;
 
+            const copyBtn = document.getElementById('modalCopyBtn');
             copyBtn.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
@@ -316,17 +438,15 @@
         function closeScriptModal() {
             const modal = document.getElementById('scriptModal');
             const content = document.getElementById('modalContent');
-            
             modal.classList.add('opacity-0', 'pointer-events-none');
             content.classList.remove('scale-100');
             content.classList.add('scale-95');
         }
 
         function copyCurrentScript() {
-            const copyBtn = document.getElementById('modalCopyBtn');
             const success = executeFallbackCopy(scriptToCopy);
-
             if (success) {
+                const copyBtn = document.getElementById('modalCopyBtn');
                 copyBtn.innerHTML = `
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
@@ -343,19 +463,14 @@
             textarea.style.position = 'fixed';
             document.body.appendChild(textarea);
             textarea.select();
-            try {
-                return document.execCommand('copy');
-            } catch (err) {
-                console.error('Copy fallback error: ', err);
-                return false;
-            } finally {
-                document.body.removeChild(textarea);
-            }
+            try { return document.execCommand('copy'); } 
+            catch (err) { return false; } 
+            finally { document.body.removeChild(textarea); }
         }
 
-        // --- 2. GITHUB FETCHING LOGIC ---
+        // --- 3. GITHUB SCRIPT FETCHING & FILTERING ---
         const SCRIPT_URL = "https://raw.githubusercontent.com/Bro-broa3/Bro-broa3.github.io/refs/heads/main/Scripts";
-        let globalScriptsData = []; // Store fetched scripts globally
+        let globalScriptsData = []; 
         
         async function loadScripts() {
             const loadingContainer = document.getElementById('scripts-loading');
@@ -364,41 +479,31 @@
             const controlsContainer = document.getElementById('scripts-controls');
             
             try {
-                // Fetch the raw text file from GitHub
-                const response = await fetch(SCRIPT_URL, { cache: 'no-store' }); // Prevent browser caching of old scripts
-                if (!response.ok) throw new Error("Network response was not ok");
+                const response = await fetch(SCRIPT_URL, { cache: 'no-store' });
+                if (!response.ok) throw new Error("Network response error");
                 
                 const textData = await response.text();
                 const lines = textData.split('\n');
                 
-                // Clear loading state
                 loadingContainer.classList.add('hidden');
-                
                 let validScriptFound = false;
-                globalScriptsData = []; // Reset array
+                globalScriptsData = []; 
 
-                // Loop through every line in the file
                 lines.forEach(line => {
                     const trimmed = line.trim();
-                    if (!trimmed) return; // Skip empty lines
+                    if (!trimmed) return; 
 
                     let parsedArr = null;
                     try {
-                        // Attempt to parse line as standard JSON: ["Title", "Info", "Script Code", "Tag"]
                         parsedArr = JSON.parse(trimmed);
                     } catch (e) {
-                        // Smart Fallback: If JSON fails because of unescaped double quotes inside the Lua script, 
-                        // we use a Regular Expression to safely extract the pieces anyway.
                         const match = trimmed.match(/^\[\s*"(.*?)"\s*,\s*"(.*?)"\s*,\s*"(.*?)"(?:\s*,\s*"(.*?)")?\s*\]$/);
                         if (match) {
                             parsedArr = [match[1], match[2], match[3]];
                             if (match[4]) parsedArr.push(match[4]);
-                        } else {
-                            console.warn("Skipping invalid line (could not read format):", trimmed);
                         }
                     }
 
-                    // Validate it has 3 or 4 elements and build the visual card
                     if (parsedArr && Array.isArray(parsedArr) && (parsedArr.length === 3 || parsedArr.length === 4)) {
                         globalScriptsData.push({
                             title: parsedArr[0],
@@ -410,25 +515,17 @@
                     }
                 });
 
-                // Handle edge case where the file exists but has no valid script lines
                 if (!validScriptFound) {
-                    gridContainer.innerHTML = `
-                        <div class="col-span-full text-center py-8">
-                            <p class="text-gray-400">No scripts found yet. Check back soon!</p>
-                        </div>
-                    `;
+                    gridContainer.innerHTML = `<div class="col-span-full text-center py-8"><p class="text-gray-400">No scripts found yet. Check back soon!</p></div>`;
                     gridContainer.classList.remove('hidden');
                 } else {
-                    // Show controls and render the grid
                     controlsContainer.classList.remove('hidden');
                     controlsContainer.classList.add('flex');
                     gridContainer.classList.remove('hidden');
                     
-                    // Attach Event Listeners for search & filter
                     document.getElementById('searchInput').addEventListener('input', filterAndRenderScripts);
                     document.getElementById('filterDropdown').addEventListener('change', filterAndRenderScripts);
                     
-                    // Trigger the first render
                     filterAndRenderScripts();
                 }
 
@@ -440,19 +537,16 @@
             }
         }
 
-        // Filters and renders the scripts based on search/dropdown
         function filterAndRenderScripts() {
             const gridContainer = document.getElementById('scripts-grid');
-            gridContainer.innerHTML = ''; // Clear current cards
+            gridContainer.innerHTML = ''; 
             
             const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
             const filterValue = document.getElementById('filterDropdown').value;
             
             const filteredScripts = globalScriptsData.filter(script => {
-                // Search condition (matches start of the title, or any part of it)
-                const matchesSearch = script.title.toLowerCase().startsWith(searchTerm) || script.title.toLowerCase().includes(searchTerm);
+                const matchesSearch = script.title.toLowerCase().includes(searchTerm);
                 
-                // Filter condition based on dropdown
                 let matchesFilter = true;
                 if (filterValue === 'key') matchesFilter = script.tagType === 'key';
                 if (filterValue === 'free') matchesFilter = script.tagType === 'free';
@@ -460,28 +554,20 @@
                 return matchesSearch && matchesFilter;
             });
             
-            // Show a nice "No results" message if filters hide everything
             if (filteredScripts.length === 0) {
                 gridContainer.innerHTML = `
                     <div class="col-span-full text-center py-12 bg-gray-800/30 rounded-2xl border border-gray-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-500 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
                         <p class="text-gray-400 font-medium text-lg">No matching scripts found.</p>
-                        <p class="text-gray-500 text-sm mt-1">Try adjusting your search or filter.</p>
                     </div>
                 `;
             } else {
-                // Re-render the matching cards
                 filteredScripts.forEach(script => {
                     createScriptCard(script.title, script.info, script.scriptCode, script.tagType === 'none' ? undefined : script.tagType, gridContainer);
                 });
             }
         }
 
-        // Helper function to build and inject the HTML for a single script card
         function createScriptCard(title, info, scriptCode, tagType, container) {
-            // Because script code can contain quotes, we safely escape it for the onclick attribute
             const escapedScriptCode = scriptCode.replace(/'/g, "\\'").replace(/"/g, "&quot;");
             const escapedTitle = title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
 
@@ -508,20 +594,14 @@
                     </div>
                     <button 
                         onclick="openScriptModal('${escapedTitle}', '${escapedScriptCode}')" 
-                        class="w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 px-4 rounded-xl transition shadow-lg hover:shadow-purple-500/20 text-sm"
+                        class="w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 px-4 rounded-xl transition shadow-lg hover:shadow-purple-500/20 text-sm mt-auto"
                     >
                         Get Script
                     </button>
                 </div>
             `;
-            
             container.insertAdjacentHTML('beforeend', cardHTML);
         }
-
-        // Initialize script fetching as soon as page loads
-        window.addEventListener('DOMContentLoaded', loadScripts);
-
     </script>
-
 </body>
 </html>
