@@ -129,6 +129,33 @@
                 <p class="text-gray-400 mt-6 max-w-2xl mx-auto text-lg">Powerful & optimized game scripts. Free to use!</p>
             </div>
 
+            <!-- Search and Filter Controls (Hidden initially until scripts load) -->
+            <div id="scripts-controls" class="max-w-5xl mx-auto mb-8 flex flex-col sm:flex-row gap-4 hidden">
+                <div class="relative flex-1">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search scripts (e.g., 'B')..." 
+                        class="w-full bg-gray-800/60 border border-gray-700 text-white rounded-xl focus:ring-purple-500 focus:border-purple-500 block pl-11 p-3.5 shadow-lg placeholder-gray-500 transition duration-200"
+                    >
+                </div>
+                <div class="sm:w-56">
+                    <select 
+                        id="filterDropdown" 
+                        class="w-full bg-gray-800/60 border border-gray-700 text-white rounded-xl focus:ring-purple-500 focus:border-purple-500 block p-3.5 shadow-lg cursor-pointer transition duration-200"
+                    >
+                        <option value="all">All Scripts</option>
+                        <option value="free">Only Free Script</option>
+                        <option value="key">Only Key Script</option>
+                    </select>
+                </div>
+            </div>
+
             <!-- Loading State -->
             <div id="scripts-loading" class="flex flex-col items-center justify-center py-12">
                 <div class="loader rounded-full w-12 h-12 mb-4"></div>
@@ -328,11 +355,13 @@
 
         // --- 2. GITHUB FETCHING LOGIC ---
         const SCRIPT_URL = "https://raw.githubusercontent.com/Bro-broa3/Bro-broa3.github.io/refs/heads/main/Scripts";
+        let globalScriptsData = []; // Store fetched scripts globally
         
         async function loadScripts() {
             const loadingContainer = document.getElementById('scripts-loading');
             const errorContainer = document.getElementById('scripts-error');
             const gridContainer = document.getElementById('scripts-grid');
+            const controlsContainer = document.getElementById('scripts-controls');
             
             try {
                 // Fetch the raw text file from GitHub
@@ -344,9 +373,9 @@
                 
                 // Clear loading state
                 loadingContainer.classList.add('hidden');
-                gridContainer.classList.remove('hidden');
                 
                 let validScriptFound = false;
+                globalScriptsData = []; // Reset array
 
                 // Loop through every line in the file
                 lines.forEach(line => {
@@ -371,12 +400,12 @@
 
                     // Validate it has 3 or 4 elements and build the visual card
                     if (parsedArr && Array.isArray(parsedArr) && (parsedArr.length === 3 || parsedArr.length === 4)) {
-                        const title = parsedArr[0];
-                        const info = parsedArr[1];
-                        const scriptCode = parsedArr[2];
-                        const tagType = parsedArr[3]; // undefined if length 3
-                        
-                        createScriptCard(title, info, scriptCode, tagType, gridContainer);
+                        globalScriptsData.push({
+                            title: parsedArr[0],
+                            info: parsedArr[1],
+                            scriptCode: parsedArr[2],
+                            tagType: parsedArr[3] ? parsedArr[3].toLowerCase().trim() : 'none'
+                        });
                         validScriptFound = true;
                     }
                 });
@@ -388,6 +417,19 @@
                             <p class="text-gray-400">No scripts found yet. Check back soon!</p>
                         </div>
                     `;
+                    gridContainer.classList.remove('hidden');
+                } else {
+                    // Show controls and render the grid
+                    controlsContainer.classList.remove('hidden');
+                    controlsContainer.classList.add('flex');
+                    gridContainer.classList.remove('hidden');
+                    
+                    // Attach Event Listeners for search & filter
+                    document.getElementById('searchInput').addEventListener('input', filterAndRenderScripts);
+                    document.getElementById('filterDropdown').addEventListener('change', filterAndRenderScripts);
+                    
+                    // Trigger the first render
+                    filterAndRenderScripts();
                 }
 
             } catch (error) {
@@ -395,6 +437,45 @@
                 loadingContainer.classList.add('hidden');
                 errorContainer.classList.remove('hidden');
                 errorContainer.classList.add('flex');
+            }
+        }
+
+        // Filters and renders the scripts based on search/dropdown
+        function filterAndRenderScripts() {
+            const gridContainer = document.getElementById('scripts-grid');
+            gridContainer.innerHTML = ''; // Clear current cards
+            
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const filterValue = document.getElementById('filterDropdown').value;
+            
+            const filteredScripts = globalScriptsData.filter(script => {
+                // Search condition (matches start of the title, or any part of it)
+                const matchesSearch = script.title.toLowerCase().startsWith(searchTerm) || script.title.toLowerCase().includes(searchTerm);
+                
+                // Filter condition based on dropdown
+                let matchesFilter = true;
+                if (filterValue === 'key') matchesFilter = script.tagType === 'key';
+                if (filterValue === 'free') matchesFilter = script.tagType === 'free';
+                
+                return matchesSearch && matchesFilter;
+            });
+            
+            // Show a nice "No results" message if filters hide everything
+            if (filteredScripts.length === 0) {
+                gridContainer.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-gray-800/30 rounded-2xl border border-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-500 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <p class="text-gray-400 font-medium text-lg">No matching scripts found.</p>
+                        <p class="text-gray-500 text-sm mt-1">Try adjusting your search or filter.</p>
+                    </div>
+                `;
+            } else {
+                // Re-render the matching cards
+                filteredScripts.forEach(script => {
+                    createScriptCard(script.title, script.info, script.scriptCode, script.tagType === 'none' ? undefined : script.tagType, gridContainer);
+                });
             }
         }
 
