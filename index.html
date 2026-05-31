@@ -355,23 +355,28 @@
 
                     let parsedArr = null;
                     try {
-                        // Attempt to parse line as standard JSON: ["Title", "Info", "Script Code"]
+                        // Attempt to parse line as standard JSON: ["Title", "Info", "Script Code", "Tag"]
                         parsedArr = JSON.parse(trimmed);
                     } catch (e) {
                         // Smart Fallback: If JSON fails because of unescaped double quotes inside the Lua script, 
-                        // we use a Regular Expression to safely extract the 3 pieces anyway.
-                        const match = trimmed.match(/^\[\s*"(.*?)"\s*,\s*"(.*?)"\s*,\s*"(.*)"\s*\]$/);
+                        // we use a Regular Expression to safely extract the pieces anyway.
+                        const match = trimmed.match(/^\[\s*"(.*?)"\s*,\s*"(.*?)"\s*,\s*"(.*?)"(?:\s*,\s*"(.*?)")?\s*\]$/);
                         if (match) {
                             parsedArr = [match[1], match[2], match[3]];
+                            if (match[4]) parsedArr.push(match[4]);
                         } else {
                             console.warn("Skipping invalid line (could not read format):", trimmed);
                         }
                     }
 
-                    // Validate it has exactly 3 elements and build the visual card
-                    if (parsedArr && Array.isArray(parsedArr) && parsedArr.length === 3) {
-                        const [title, info, scriptCode] = parsedArr;
-                        createScriptCard(title, info, scriptCode, gridContainer);
+                    // Validate it has 3 or 4 elements and build the visual card
+                    if (parsedArr && Array.isArray(parsedArr) && (parsedArr.length === 3 || parsedArr.length === 4)) {
+                        const title = parsedArr[0];
+                        const info = parsedArr[1];
+                        const scriptCode = parsedArr[2];
+                        const tagType = parsedArr[3]; // undefined if length 3
+                        
+                        createScriptCard(title, info, scriptCode, tagType, gridContainer);
                         validScriptFound = true;
                     }
                 });
@@ -394,17 +399,30 @@
         }
 
         // Helper function to build and inject the HTML for a single script card
-        function createScriptCard(title, info, scriptCode, container) {
+        function createScriptCard(title, info, scriptCode, tagType, container) {
             // Because script code can contain quotes, we safely escape it for the onclick attribute
             const escapedScriptCode = scriptCode.replace(/'/g, "\\'").replace(/"/g, "&quot;");
             const escapedTitle = title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+
+            let extraTagHTML = '';
+            if (tagType) {
+                const typeLower = tagType.toLowerCase().trim();
+                if (typeLower === 'key') {
+                    extraTagHTML = `<span class="ml-2 text-xs font-bold text-yellow-400 tracking-wider uppercase bg-yellow-500/20 px-2.5 py-1 rounded-full border border-yellow-500/30 shadow-[0_0_10px_rgba(234,179,8,0.3)]">🔑 Key</span>`;
+                } else if (typeLower === 'free') {
+                    extraTagHTML = `<span class="ml-2 text-xs font-bold text-green-400 tracking-wider uppercase bg-green-500/20 px-2.5 py-1 rounded-full border border-green-500/30 shadow-[0_0_10px_rgba(34,197,94,0.3)]">🆓 Free</span>`;
+                }
+            }
 
             const cardHTML = `
                 <div class="bg-gray-800/60 rounded-2xl border border-gray-700 p-6 flex flex-col justify-between hover:border-purple-500/50 transition duration-300 transform hover:-translate-y-1 relative overflow-hidden group">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500 blur-[40px] opacity-10"></div>
                     <div>
-                        <span class="text-xs font-bold text-purple-400 tracking-wider uppercase bg-purple-500/10 px-2.5 py-1 rounded-full border border-purple-500/20">Game Script</span>
-                        <h3 class="text-xl font-bold mt-4 mb-2 text-white group-hover:text-purple-300 transition">${title}</h3>
+                        <div class="flex items-center flex-wrap mb-4 gap-y-2">
+                            <span class="text-xs font-bold text-purple-400 tracking-wider uppercase bg-purple-500/10 px-2.5 py-1 rounded-full border border-purple-500/20">Game Script</span>
+                            ${extraTagHTML}
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-purple-300 transition">${title}</h3>
                         <p class="text-gray-400 text-sm leading-relaxed mb-6">${info}</p>
                     </div>
                     <button 
