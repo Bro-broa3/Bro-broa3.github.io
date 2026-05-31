@@ -8,6 +8,6 @@
 ["Toilet verse tower defense","anto paradise,fly,antiafk etc","https://workink.net/20xm/mj9rxoo3","key"]
 ["Egg Toss [2 Players]","add money","https://workink.net/20xm/r1641zwp","key"]
 ["Big & Tiny Size Obby [2 Player]","dupe money","https://workink.net/20xm/ke0p1rh0","key"]
-["[VANTAVIRUS] Outbreak","inf dna","https://raw.githubusercontent.com/Bro-broa3/RBXGame/refs/heads/main/%5BVANTAVIRUS%5D%20Outbreak","free"]
+["[VANTAVIRUS] Outbreak","inf dna","loadstring(game:HttpGet("https://raw.githubusercontent.com/Bro-broa3/RBXGame/refs/heads/main/%5BVANTAVIRUS%5D%20Outbreak"))()","free"]
 ["Survive the Backrooms","anto farm gems","https://scriptblox.com/script/Survive-the-Backrooms-Anto-farm-gems-221208","free"]
 ["Scriptblox","OP","loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/286a778f509ad9f8eba2ae588e9ae6bf86715acc8faebcf08dc61407a2db2641/download"))()","key"]
