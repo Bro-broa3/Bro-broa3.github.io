@@ -20,6 +20,17 @@
         .script-glow {
             box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
         }
+        
+        /* Spinner animation for loading */
+        .loader {
+            border: 4px solid rgba(168, 85, 247, 0.2);
+            border-left-color: rgba(168, 85, 247, 1);
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white font-sans min-h-screen">
@@ -76,7 +87,7 @@
             </div>
         </section>
 
-        <!-- Introductions Section (Streamable Embed with Fallback Link) -->
+        <!-- Introductions Section -->
         <section id="introductions" class="mb-32">
             <div class="text-center mb-10">
                 <h2 class="text-4xl md:text-5xl font-black text-white">Introductions</h2>
@@ -110,7 +121,7 @@
             </div>
         </section>
 
-        <!-- Scripts Section -->
+        <!-- Scripts Section (Dynamically Loaded) -->
         <section id="scripts" class="mb-32">
             <div class="text-center mb-12">
                 <h2 class="text-4xl md:text-5xl font-black text-white">Scripts</h2>
@@ -118,72 +129,24 @@
                 <p class="text-gray-400 mt-6 max-w-2xl mx-auto text-lg">Powerful & optimized game scripts. Free to use!</p>
             </div>
 
-            <!-- Scripts Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                
-                <!-- Script Card 1 -->
-                <div class="bg-gray-800/60 rounded-2xl border border-gray-700 p-6 flex flex-col justify-between hover:border-purple-500/50 transition duration-300 transform hover:-translate-y-1 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500 blur-[40px] opacity-10"></div>
-                    <div>
-                        <span class="text-xs font-bold text-purple-400 tracking-wider uppercase bg-purple-500/10 px-2.5 py-1 rounded-full border border-purple-500/20">Game Script</span>
-                        <!-- Game Name -->
-                        <h3 class="text-xl font-bold mt-4 mb-2 text-white group-hover:text-purple-300 transition">INFINITW YILED</h3>
-                        <!-- Script Function -->
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                            INFINITE POWER IN ALL TIME
-                        </p>
-                    </div>
-                    <!-- Get Script Trigger -->
-                    <button 
-                        onclick="openScriptModal('Infinite Yiled', 'loadstring(game:HttpGet(\'https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source\'))()')" 
-                        class="w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 px-4 rounded-xl transition shadow-lg hover:shadow-purple-500/20 text-sm"
-                    >
-                        Get Script
-                    </button>
-                </div>
+            <!-- Loading State -->
+            <div id="scripts-loading" class="flex flex-col items-center justify-center py-12">
+                <div class="loader rounded-full w-12 h-12 mb-4"></div>
+                <p class="text-purple-400 font-medium">Fetching latest scripts from GitHub...</p>
+            </div>
+            
+            <!-- Error State -->
+            <div id="scripts-error" class="hidden flex-col items-center justify-center py-8 bg-red-900/20 border border-red-500/30 rounded-2xl max-w-2xl mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-500 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <p class="text-red-400 font-bold">Failed to load scripts.</p>
+                <p class="text-gray-400 text-sm mt-1">Please try refreshing the page later.</p>
+            </div>
 
-                <!-- Script Card 2 -->
-                <div class="bg-gray-800/60 rounded-2xl border border-gray-700 p-6 flex flex-col justify-between hover:border-purple-500/50 transition duration-300 transform hover:-translate-y-1 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500 blur-[40px] opacity-10"></div>
-                    <div>
-                        <span class="text-xs font-bold text-purple-400 tracking-wider uppercase bg-purple-500/10 px-2.5 py-1 rounded-full border border-purple-500/20">Game Script</span>
-                        <!-- Game Name -->
-                        <h3 class="text-xl font-bold mt-4 mb-2 text-white group-hover:text-purple-300 transition">Climb Poppy Playtime Tower(workink)</h3>
-                        <!-- Script Function -->
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                            INF money and wins
-                        </p>
-                    </div>
-                    <!-- Get Script Trigger -->
-                    <button 
-                        onclick="openScriptModal('Climb Poppy Playtime Tower(workink)', 'https://work.ink/20xm/climb-poppy-playtime-tower-script-inf-money-and-wi')" 
-                        class="w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 px-4 rounded-xl transition shadow-lg hover:shadow-purple-500/20 text-sm"
-                    >
-                        Get Script
-                    </button>
-                </div>
-
-                <!-- Script Card 3 -->
-                <div class="bg-gray-800/60 rounded-2xl border border-gray-700 p-6 flex flex-col justify-between hover:border-purple-500/50 transition duration-300 transform hover:-translate-y-1 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500 blur-[40px] opacity-10"></div>
-                    <div>
-                        <span class="text-xs font-bold text-purple-400 tracking-wider uppercase bg-purple-500/10 px-2.5 py-1 rounded-full border border-purple-500/20">Game Script</span>
-                        <!-- Game Name -->
-                        <h3 class="text-xl font-bold mt-4 mb-2 text-white group-hover:text-purple-300 transition">Bro_broa Hub(need key)</h3>
-                        <!-- Script Function -->
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                            Everything in this hub,like scriptblox gui,youtube player and etc op scripts
-                        </p>
-                    </div>
-                    <!-- Get Script Trigger -->
-                    <button 
-                        onclick="openScriptModal('Bro_broa Hub(need key)', 'loadstring(game:HttpGet(\'https://raw.githubusercontent.com/Bro-broa3/Bro_broa-scripts/refs/heads/main/Bro_broa%20Gui\'))()')" 
-                        class="w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 px-4 rounded-xl transition shadow-lg hover:shadow-purple-500/20 text-sm"
-                    >
-                        Get Script
-                    </button>
-                </div>
-
+            <!-- Dynamic Scripts Grid (Populated by JS) -->
+            <div id="scripts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto hidden">
+                <!-- Cards will be injected here automatically -->
             </div>
         </section>
 
@@ -253,7 +216,7 @@
 
     </main>
 
-    <!-- Script Copying Modal Backdrop/Container -->
+    <!-- Script Copying Modal -->
     <div id="scriptModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
         <div id="modalContent" class="bg-gray-800 border border-gray-700 w-full max-w-xl rounded-2xl p-6 shadow-2xl relative transform scale-95 transition-transform duration-300">
             <!-- Modal Header -->
@@ -294,11 +257,11 @@
         </p>
     </footer>
 
-    <!-- Copy Modal JavaScript -->
+    <!-- Copy Modal and GitHub Fetching JavaScript -->
     <script>
+        // --- 1. MODAL COPY LOGIC ---
         let scriptToCopy = "";
 
-        // Opens the Modal and dynamically loads in script details
         function openScriptModal(gameName, scriptCode) {
             const modal = document.getElementById('scriptModal');
             const content = document.getElementById('modalContent');
@@ -306,12 +269,10 @@
             const scriptText = document.getElementById('scriptText');
             const copyBtn = document.getElementById('modalCopyBtn');
 
-            // Load values
             modalTitle.innerText = gameName + " Script";
             scriptText.value = scriptCode;
             scriptToCopy = scriptCode;
 
-            // Reset copy button styling
             copyBtn.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
@@ -320,13 +281,11 @@
             `;
             copyBtn.className = "flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-xl transition flex items-center justify-center gap-2";
 
-            // Transitions
             modal.classList.remove('opacity-0', 'pointer-events-none');
             content.classList.remove('scale-95');
             content.classList.add('scale-100');
         }
 
-        // Closes the script copy modal
         function closeScriptModal() {
             const modal = document.getElementById('scriptModal');
             const content = document.getElementById('modalContent');
@@ -336,7 +295,6 @@
             content.classList.add('scale-95');
         }
 
-        // Highly compatible copy method for iframe deployment
         function copyCurrentScript() {
             const copyBtn = document.getElementById('modalCopyBtn');
             const success = executeFallbackCopy(scriptToCopy);
@@ -352,23 +310,118 @@
             }
         }
 
-        // Helper copy command
         function executeFallbackCopy(text) {
             const textarea = document.createElement('textarea');
             textarea.value = text;
-            textarea.style.position = 'fixed'; // Avoids layout jumping
+            textarea.style.position = 'fixed';
             document.body.appendChild(textarea);
             textarea.select();
             try {
-                const successful = document.execCommand('copy');
-                return successful;
+                return document.execCommand('copy');
             } catch (err) {
-                console.error('Copy fallback execution error: ', err);
+                console.error('Copy fallback error: ', err);
                 return false;
             } finally {
                 document.body.removeChild(textarea);
             }
         }
+
+        // --- 2. GITHUB FETCHING LOGIC ---
+        const SCRIPT_URL = "https://raw.githubusercontent.com/Bro-broa3/Bro-broa3.github.io/refs/heads/main/Scripts";
+        
+        async function loadScripts() {
+            const loadingContainer = document.getElementById('scripts-loading');
+            const errorContainer = document.getElementById('scripts-error');
+            const gridContainer = document.getElementById('scripts-grid');
+            
+            try {
+                // Fetch the raw text file from GitHub
+                const response = await fetch(SCRIPT_URL, { cache: 'no-store' }); // Prevent browser caching of old scripts
+                if (!response.ok) throw new Error("Network response was not ok");
+                
+                const textData = await response.text();
+                const lines = textData.split('\n');
+                
+                // Clear loading state
+                loadingContainer.classList.add('hidden');
+                gridContainer.classList.remove('hidden');
+                
+                let validScriptFound = false;
+
+                // Loop through every line in the file
+                lines.forEach(line => {
+                    const trimmed = line.trim();
+                    if (!trimmed) return; // Skip empty lines
+
+                    let parsedArr = null;
+                    try {
+                        // Attempt to parse line as standard JSON: ["Title", "Info", "Script Code"]
+                        parsedArr = JSON.parse(trimmed);
+                    } catch (e) {
+                        // Smart Fallback: If JSON fails because of unescaped double quotes inside the Lua script, 
+                        // we use a Regular Expression to safely extract the 3 pieces anyway.
+                        const match = trimmed.match(/^\[\s*"(.*?)"\s*,\s*"(.*?)"\s*,\s*"(.*)"\s*\]$/);
+                        if (match) {
+                            parsedArr = [match[1], match[2], match[3]];
+                        } else {
+                            console.warn("Skipping invalid line (could not read format):", trimmed);
+                        }
+                    }
+
+                    // Validate it has exactly 3 elements and build the visual card
+                    if (parsedArr && Array.isArray(parsedArr) && parsedArr.length === 3) {
+                        const [title, info, scriptCode] = parsedArr;
+                        createScriptCard(title, info, scriptCode, gridContainer);
+                        validScriptFound = true;
+                    }
+                });
+
+                // Handle edge case where the file exists but has no valid script lines
+                if (!validScriptFound) {
+                    gridContainer.innerHTML = `
+                        <div class="col-span-full text-center py-8">
+                            <p class="text-gray-400">No scripts found yet. Check back soon!</p>
+                        </div>
+                    `;
+                }
+
+            } catch (error) {
+                console.error("Failed to fetch scripts:", error);
+                loadingContainer.classList.add('hidden');
+                errorContainer.classList.remove('hidden');
+                errorContainer.classList.add('flex');
+            }
+        }
+
+        // Helper function to build and inject the HTML for a single script card
+        function createScriptCard(title, info, scriptCode, container) {
+            // Because script code can contain quotes, we safely escape it for the onclick attribute
+            const escapedScriptCode = scriptCode.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+            const escapedTitle = title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+
+            const cardHTML = `
+                <div class="bg-gray-800/60 rounded-2xl border border-gray-700 p-6 flex flex-col justify-between hover:border-purple-500/50 transition duration-300 transform hover:-translate-y-1 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500 blur-[40px] opacity-10"></div>
+                    <div>
+                        <span class="text-xs font-bold text-purple-400 tracking-wider uppercase bg-purple-500/10 px-2.5 py-1 rounded-full border border-purple-500/20">Game Script</span>
+                        <h3 class="text-xl font-bold mt-4 mb-2 text-white group-hover:text-purple-300 transition">${title}</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">${info}</p>
+                    </div>
+                    <button 
+                        onclick="openScriptModal('${escapedTitle}', '${escapedScriptCode}')" 
+                        class="w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 px-4 rounded-xl transition shadow-lg hover:shadow-purple-500/20 text-sm"
+                    >
+                        Get Script
+                    </button>
+                </div>
+            `;
+            
+            container.insertAdjacentHTML('beforeend', cardHTML);
+        }
+
+        // Initialize script fetching as soon as page loads
+        window.addEventListener('DOMContentLoaded', loadScripts);
+
     </script>
 
 </body>
